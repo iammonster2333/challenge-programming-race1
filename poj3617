@@ -1,26 +1,31 @@
-import urllib.request as urllib2
-from bs4 import BeautifulSoup
-import pandas as pd
-import re
-from unidecode import unidecode
+#include"stdafx.h"
 
-quote_page = 'http://metrolyrics.com/{}-lyrics-drake.html'
-filename = 'drake-songs.csv'
-songs = pd.read_csv(filename)
-for index, row in songs.iterrows():
-    page = urllib2.urlopen(quote_page.format(row['song']))
-    soup = BeautifulSoup(page, 'html.parser')
-    verses = soup.find_all('p', attrs={'class': 'verse'})
-    lyrics = ''
-    for verse in verses:
-        text = verse.text.strip()
-        text = re.sub(r"\[.*\]\n", "", unidecode(text))
-        if lyrics == '':
-            lyrics = lyrics + text.replace('\n', '|-|')
-        else:
-            lyrics = lyrics + '|-|' + text.replace('\n', '|-|')
-    songs.at[index, 'lyrics'] = lyrics
-    print('saving {}'.format(row['song']))
-    songs.head()
-print('writing to .csv')
-songs.to_csv(filename, sep=',', encoding='utf-8')
+int N;
+char S[2001];
+
+int main() {
+	scanf_s("%d", &N);
+	for (int i = 0; i<N; i++) {
+	scanf_s("%c", &S[i]);
+	}
+	printf("%d", S[0]);
+	int a = 0, b = N - 1;
+
+	while (a <= b) {
+		bool left = false;
+		for (int i = 0; a + i <= b; i++) {
+			if (S[a + i]<S[b - i]) {
+				left = true;
+				break;
+			}
+			else if (S[a + i]>S[b - i]) {
+				left = false;
+				break;
+			}
+		}
+		if (left)putchar(S[a++]);
+		else putchar(S[b--]);
+	}
+	
+}
+

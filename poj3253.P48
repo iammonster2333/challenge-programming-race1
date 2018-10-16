@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<queue>
+#define ll long long 
+
+using namespace std;
+priority_queue<int,vector<int>,greater<int>> q;
+int main(){
+    int n;
+    ll ans=0;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++){
+    int tem;
+    scanf("%d",&tem);
+    q.push(tem);
+    }
+    while(1){
+    int tem1=q.top();
+    q.pop();
+    if(q.empty())break;
+    int tem2=q.top();
+    q.pop();
+    ans+=(ll)tem1+tem2;
+    q.push(tem1+tem2);
+    }
+    printf("%lld",ans);
+}
+
+
+###code in book,can not run directly actully
+typedef long long ll;
+
+int N,L[50000];
+
+int main(){
+    ll ans=0;
+
+    while(N>1){
+    int mii1=0,mii2=1;
+    if(L[mii1]>L[mii2])swap(mii1,mii2);
+
+    for(int i=2;i<N;i++){
+    if(L[i]<L[mii1]){
+    mii2=mii1;
+    mii1=i;
+
+    }
+    else if(L[i]<L[mii2]){
+    mii2=i;
+    }
+    }
+
+    int t=L[mii1]+L[mii2];
+    ans+=t;
+
+    if(mii1==N-1)swap(mii1,mii2);
+    L[mii1]=t;
+    L[mii2]=L[N-1];
+    N--;
+
+
+
+    }
+    printf("%lld",ans);
+}
